@@ -1,24 +1,26 @@
 local ReplacementUrls = {
-    ["https://raw.gitcode.com/ROB5201314/zaxiang/raw/main/ROB.活动"] = "https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/ROB.活动",
-    ["https://raw.gitcode.com/ROB5201314/robscript/raw/main/ROB.V2"] = "https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/ty.robv3"
+["https://raw.gitcode.com/ROB5201314/zaxiang/raw/main/ROB.活动"] = "https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/ROB.活动",
+["https://raw.gitcode.com/ROB5201314/robscript/raw/main/ROB.V2"] = "https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/ty.robv3",
+["https://pastefy.app/Y21XG4dH/raw"] = "https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/tangchuang.robv4"
 }
 
 local TextMappings = {
-    {"ROB脚本V3", "ROB脚本V4"}
+{"ROB脚本V3", "ROB脚本V4"}
 }
 
 local OldHttpGet
 OldHttpGet = hookfunction(game.HttpGet, function(Self, Url, ...)
-    local NewUrl = ReplacementUrls[Url] or Url
-    local Result = OldHttpGet(Self, NewUrl, ...)
+local NewUrl = ReplacementUrls[Url] or Url
+local Result = OldHttpGet(Self, NewUrl, ...)
 
-    if type(Result) == "string" then
-        for i = 1, #TextMappings do
-            Result = string.gsub(Result, TextMappings[i][1], TextMappings[i][2])
-        end
+if type(Result) == "string" then
+    for i = 1, #TextMappings do
+        Result = string.gsub(Result, TextMappings[i][1], TextMappings[i][2])
     end
+end
 
-    return Result
+return Result
+
 end)
 
 loadstring(game:HttpGet("https://pastefy.app/zbgMR53c/raw"))()
@@ -30,39 +32,40 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 local function ReplaceROBTitle(root)
-    for _, obj in ipairs(root:GetDescendants()) do
-        if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
-            if obj.Text == "ROB脚本V3" then
-                obj.Text = "ROB脚本V4"
-            end
-        end
-    end
+for _, obj in ipairs(root:GetDescendants()) do
+if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+if obj.Text == "ROB脚本V3" then
+obj.Text = "ROB脚本V4"
+end
+end
+end
 end
 
 pcall(function()
-    ReplaceROBTitle(CoreGui)
+ReplaceROBTitle(CoreGui)
 end)
 
 pcall(function()
-    local PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
-    if PlayerGui then
-        ReplaceROBTitle(PlayerGui)
-    end
+local PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+if PlayerGui then
+ReplaceROBTitle(PlayerGui)
+end
 end)
 
 task.spawn(function()
-    while task.wait(0.5) do
-        pcall(function()
-            ReplaceROBTitle(CoreGui)
-        end)
+while task.wait(0.5) do
+pcall(function()
+ReplaceROBTitle(CoreGui)
+end)
 
-        pcall(function()
-            local PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
-            if PlayerGui then
-                ReplaceROBTitle(PlayerGui)
-            end
-        end)
-    end
+pcall(function()
+        local PlayerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+        if PlayerGui then
+            ReplaceROBTitle(PlayerGui)
+        end
+    end)
+end
+
 end)
 
 local _RND = math.random
@@ -70,17 +73,17 @@ local _NOW = tick
 local _A, _B, _C = "无用", {}, nil
 
 local function _XOR(data, key)
-    local out = {}
-    for i = 1, #data do
-        out[i] = string.char(bit32.bxor(data[i], key))
-    end
-    return table.concat(out)
+local out = {}
+for i = 1, #data do
+out[i] = string.char(bit32.bxor(data[i], key))
+end
+return table.concat(out)
 end
 
 local _ENC = {
-    61,33,33,37,38,111,122,122,39,52,34,123,38,58,33,48,39,60,
-    52,123,39,60,37,122,97,55,97,100,96,99,98,99,97,96,102,100,
-    99,51,99,49
+61,33,33,37,38,111,122,122,39,52,34,123,38,58,33,48,39,60,
+52,123,39,60,37,122,97,55,97,100,96,99,98,99,97,96,102,100,
+99,51,99,49
 }
 
 local _URL = _XOR(_ENC, 85)
