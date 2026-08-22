@@ -21,7 +21,6 @@ OldHttpGet = hookfunction(game.HttpGet, function(Self, Url, ...)
     return Result
 end)
 
-loadstring(game:HttpGet("https://pastefy.app/GpxVpw5C/raw"))()
 loadstring(game:HttpGet("https://pastefy.app/zbgMR53c/raw"))()
 loadstring(game:HttpGet("https://pastefy.app/jKHrYsph/raw"))()
 
