@@ -1,0 +1,356 @@
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+local CoreGui = game:GetService("CoreGui")
+
+local V4Code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/idrobsc/rob_script/refs/heads/main/rob.v4"))()'
+
+local old = CoreGui:FindFirstChild("ROBV4Announcement")
+if old then
+    old:Destroy()
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ROBV4Announcement"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = CoreGui
+
+local Shadow = Instance.new("Frame")
+Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+Shadow.Position = UDim2.fromScale(0.5, 0.5) + UDim2.fromOffset(0, 8)
+Shadow.Size = UDim2.fromOffset(430, 250)
+Shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Shadow.BackgroundTransparency = 0.72
+Shadow.BorderSizePixel = 0
+Shadow.ZIndex = 1
+Shadow.Parent = ScreenGui
+
+local ShadowCorner = Instance.new("UICorner")
+ShadowCorner.CornerRadius = UDim.new(0, 18)
+ShadowCorner.Parent = Shadow
+
+local Main = Instance.new("Frame")
+Main.AnchorPoint = Vector2.new(0.5, 0.5)
+Main.Position = UDim2.fromScale(0.5, 0.5)
+Main.Size = UDim2.fromOffset(430, 250)
+Main.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+Main.BackgroundTransparency = 0.12
+Main.BorderSizePixel = 0
+Main.ZIndex = 2
+Main.Parent = ScreenGui
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 18)
+MainCorner.Parent = Main
+
+local Border = Instance.new("UIStroke")
+Border.Thickness = 1.5
+Border.Transparency = 0.05
+Border.Parent = Main
+
+local BorderGradient = Instance.new("UIGradient")
+BorderGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(10, 10, 10)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(115, 115, 115)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 10, 10))
+})
+BorderGradient.Parent = Border
+
+local Top = Instance.new("Frame")
+Top.BackgroundTransparency = 1
+Top.Size = UDim2.new(1, 0, 0, 62)
+Top.ZIndex = 3
+Top.Parent = Main
+
+local Title = Instance.new("TextLabel")
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.fromOffset(22, 13)
+Title.Size = UDim2.new(1, -44, 0, 28)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "ROBV3 脚本变更公告"
+Title.TextColor3 = Color3.fromRGB(20, 20, 20)
+Title.TextSize = 21
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.ZIndex = 4
+Title.Parent = Top
+
+local Tag = Instance.new("TextLabel")
+Tag.BackgroundTransparency = 1
+Tag.Position = UDim2.fromOffset(22, 39)
+Tag.Size = UDim2.new(1, -44, 0, 17)
+Tag.Font = Enum.Font.GothamMedium
+Tag.Text = "脚本版本已更新"
+Tag.TextColor3 = Color3.fromRGB(90, 90, 90)
+Tag.TextSize = 12
+Tag.TextXAlignment = Enum.TextXAlignment.Left
+Tag.ZIndex = 4
+Tag.Parent = Top
+
+local Line = Instance.new("Frame")
+Line.BorderSizePixel = 0
+Line.Position = UDim2.fromOffset(22, 61)
+Line.Size = UDim2.new(1, -44, 0, 1)
+Line.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+Line.BackgroundTransparency = 0.35
+Line.ZIndex = 4
+Line.Parent = Main
+
+local Body = Instance.new("TextLabel")
+Body.BackgroundTransparency = 1
+Body.Position = UDim2.fromOffset(22, 79)
+Body.Size = UDim2.new(1, -44, 0, 66)
+Body.Font = Enum.Font.Gotham
+Body.Text = "ROBV3 脚本已经过时。\n请使用最新的 ROBV4 版本，以获得更好的兼容性和稳定性。"
+Body.TextColor3 = Color3.fromRGB(45, 45, 45)
+Body.TextSize = 14
+Body.TextWrapped = true
+Body.TextXAlignment = Enum.TextXAlignment.Left
+Body.TextYAlignment = Enum.TextYAlignment.Top
+Body.ZIndex = 4
+Body.Parent = Main
+
+local Status = Instance.new("TextLabel")
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.fromOffset(22, 145)
+Status.Size = UDim2.new(1, -44, 0, 22)
+Status.Font = Enum.Font.GothamMedium
+Status.Text = "ROBV4 已准备就绪"
+Status.TextColor3 = Color3.fromRGB(70, 70, 70)
+Status.TextSize = 12
+Status.TextXAlignment = Enum.TextXAlignment.Left
+Status.ZIndex = 4
+Status.Parent = Main
+
+local ExecuteButton = Instance.new("TextButton")
+ExecuteButton.AutoButtonColor = false
+ExecuteButton.Position = UDim2.fromOffset(22, 181)
+ExecuteButton.Size = UDim2.fromOffset(181, 47)
+ExecuteButton.BackgroundColor3 = Color3.fromRGB(20, 45, 75)
+ExecuteButton.BorderSizePixel = 0
+ExecuteButton.Font = Enum.Font.GothamBold
+ExecuteButton.Text = "执行 ROBV4"
+ExecuteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ExecuteButton.TextSize = 15
+ExecuteButton.TextStrokeColor3 = Color3.fromRGB(0, 15, 30)
+ExecuteButton.TextStrokeTransparency = 0.8
+ExecuteButton.ZIndex = 4
+ExecuteButton.Parent = Main
+
+local ExecuteCorner = Instance.new("UICorner")
+ExecuteCorner.CornerRadius = UDim.new(0, 12)
+ExecuteCorner.Parent = ExecuteButton
+
+local ExecuteGradient = Instance.new("UIGradient")
+ExecuteGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(12, 28, 48)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(35, 78, 120)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 120, 155))
+})
+ExecuteGradient.Rotation = 25
+ExecuteGradient.Parent = ExecuteButton
+
+local ExecuteStroke = Instance.new("UIStroke")
+ExecuteStroke.Color = Color3.fromRGB(20, 65, 105)
+ExecuteStroke.Transparency = 0.1
+ExecuteStroke.Thickness = 1
+ExecuteStroke.Parent = ExecuteButton
+
+local CopyButton = Instance.new("TextButton")
+CopyButton.AutoButtonColor = false
+CopyButton.Position = UDim2.fromOffset(227, 181)
+CopyButton.Size = UDim2.fromOffset(181, 47)
+CopyButton.BackgroundColor3 = Color3.fromRGB(225, 240, 250)
+CopyButton.BorderSizePixel = 0
+CopyButton.Font = Enum.Font.GothamBold
+CopyButton.Text = "复制 ROBV4 代码"
+CopyButton.TextColor3 = Color3.fromRGB(25, 65, 95)
+CopyButton.TextSize = 15
+CopyButton.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+CopyButton.TextStrokeTransparency = 0.55
+CopyButton.ZIndex = 4
+CopyButton.Parent = Main
+
+local CopyCorner = Instance.new("UICorner")
+CopyCorner.CornerRadius = UDim.new(0, 12)
+CopyCorner.Parent = CopyButton
+
+local CopyGradient = Instance.new("UIGradient")
+CopyGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(248, 252, 255)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 237, 249)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(180, 210, 230))
+})
+CopyGradient.Rotation = 25
+CopyGradient.Parent = CopyButton
+
+local CopyStroke = Instance.new("UIStroke")
+CopyStroke.Color = Color3.fromRGB(105, 150, 180)
+CopyStroke.Transparency = 0.15
+CopyStroke.Thickness = 1
+CopyStroke.Parent = CopyButton
+
+local dragging = false
+local dragStart
+local startPos
+
+Top.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        dragging = true
+        dragStart = input.Position
+        startPos = Main.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (
+        input.UserInputType == Enum.UserInputType.MouseMovement
+        or input.UserInputType == Enum.UserInputType.Touch
+    ) then
+
+        local delta = input.Position - dragStart
+
+        local newPos = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+
+        Main.Position = newPos
+        Shadow.Position = newPos + UDim2.fromOffset(0, 8)
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        dragging = false
+    end
+end)
+
+local function buttonSize(button, size)
+    TweenService:Create(
+        button,
+        TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {
+            Size = size
+        }
+    ):Play()
+end
+
+ExecuteButton.MouseEnter:Connect(function()
+    buttonSize(ExecuteButton, UDim2.fromOffset(184, 49))
+end)
+
+ExecuteButton.MouseLeave:Connect(function()
+    buttonSize(ExecuteButton, UDim2.fromOffset(181, 47))
+end)
+
+CopyButton.MouseEnter:Connect(function()
+    buttonSize(CopyButton, UDim2.fromOffset(184, 49))
+end)
+
+CopyButton.MouseLeave:Connect(function()
+    buttonSize(CopyButton, UDim2.fromOffset(181, 47))
+end)
+
+local function notify(text)
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = "ROBV4",
+            Text = text,
+            Duration = 3
+        })
+    end)
+end
+
+ExecuteButton.MouseButton1Click:Connect(function()
+    Status.Text = "正在执行 ROBV4..."
+    Status.TextColor3 = Color3.fromRGB(40, 110, 70)
+
+    local fn = loadstring(V4Code)
+
+    if not fn then
+        Status.Text = "ROBV4 加载失败"
+        Status.TextColor3 = Color3.fromRGB(180, 55, 55)
+        notify("ROBV4 加载失败")
+        return
+    end
+
+    local ok = pcall(fn)
+
+    if ok then
+        Status.Text = "ROBV4 已执行"
+        Status.TextColor3 = Color3.fromRGB(40, 110, 70)
+        notify("ROBV4 执行成功")
+
+        task.wait(0.15)
+
+        local gui = CoreGui:FindFirstChild("ROBV4Announcement")
+        if gui then
+            gui:Destroy()
+        end
+    else
+        Status.Text = "ROBV4 执行失败"
+        Status.TextColor3 = Color3.fromRGB(180, 55, 55)
+        notify("ROBV4 执行失败")
+    end
+end)
+
+CopyButton.MouseButton1Click:Connect(function()
+    local copied = pcall(function()
+        if setclipboard then
+            setclipboard(V4Code)
+        elseif toclipboard then
+            toclipboard(V4Code)
+        elseif writeclipboard then
+            writeclipboard(V4Code)
+        else
+            error("clipboard unavailable")
+        end
+    end)
+
+    if copied then
+        Status.Text = "ROBV4 代码已复制"
+        Status.TextColor3 = Color3.fromRGB(55, 105, 180)
+        CopyButton.Text = "已复制 ROBV4 代码"
+
+        notify("ROBV4 代码已复制")
+
+        task.delay(1.5, function()
+            if CopyButton.Parent then
+                CopyButton.Text = "复制 ROBV4 代码"
+            end
+        end)
+    else
+        Status.Text = "当前环境不支持复制"
+        Status.TextColor3 = Color3.fromRGB(180, 120, 55)
+        notify("当前环境不支持剪贴板")
+    end
+end)
+
+Main.BackgroundTransparency = 1
+Main.Size = UDim2.fromOffset(410, 238)
+Shadow.BackgroundTransparency = 1
+
+TweenService:Create(
+    Main,
+    TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+    {
+        BackgroundTransparency = 0.12,
+        Size = UDim2.fromOffset(430, 250)
+    }
+):Play()
+
+TweenService:Create(
+    Shadow,
+    TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+    {
+        BackgroundTransparency = 0.72,
+        Size = UDim2.fromOffset(430, 250)
+    }
+):Play()
